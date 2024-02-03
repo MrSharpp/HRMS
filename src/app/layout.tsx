@@ -3,7 +3,7 @@ import React from "react";
 import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 
 export const metadata = {
-  title: "Mantine Next.js template",
+  title: "Home Page",
   description: "I am using Mantine with Next.js!",
 };
 
