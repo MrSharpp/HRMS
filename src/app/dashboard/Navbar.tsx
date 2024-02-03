@@ -1,95 +1,75 @@
 'use client'
 
-import { useState } from 'react';
-import { UnstyledButton, Tooltip, Title, rem } from '@mantine/core';
+
+import { Group, Code, ScrollArea, rem } from '@mantine/core';
 import {
-  IconHome2,
-  IconGauge,
-  IconDeviceDesktopAnalytics,
-  IconFingerprint,
+  IconNotes,
   IconCalendarStats,
-  IconUser,
-  IconSettings,
+  IconGauge,
+  IconPresentationAnalytics,
+  IconFileAnalytics,
+  IconAdjustments,
+  IconLock,
 } from '@tabler/icons-react';
-import classes from './Navbar.module.css';
+// import { UserButton } from '../UserButton/UserButton';
+import { LinksGroup } from '../dashboard/NavbarLinksGroup';
+// import { Logo } from './Logo';
+import classes from './NavbarNested.module.css';
 
-const mainLinksMockdata = [
-  { icon: IconHome2, label: 'Home' },
-  { icon: IconGauge, label: 'Dashboard' },
-  { icon: IconDeviceDesktopAnalytics, label: 'Analytics' },
-  { icon: IconCalendarStats, label: 'Releases' },
-  { icon: IconUser, label: 'Account' },
-  { icon: IconFingerprint, label: 'Security' },
-  { icon: IconSettings, label: 'Settings' },
-];
-
-const linksMockdata = [
-  'Security',
-  'Settings',
-  'Dashboard',
-  'Releases',
-  'Account',
-  'Orders',
-  'Clients',
-  'Databases',
-  'Pull Requests',
-  'Open Issues',
-  'Wiki pages',
+const mockdata = [
+  { label: 'Dashboard', icon: IconGauge },
+  {
+    label: 'Market news',
+    icon: IconNotes,
+    initiallyOpened: true,
+    links: [
+      { label: 'Overview', link: '/' },
+      { label: 'Forecasts', link: '/' },
+      { label: 'Outlook', link: '/' },
+      { label: 'Real time', link: '/' },
+    ],
+  },
+  {
+    label: 'Releases',
+    icon: IconCalendarStats,
+    links: [
+      { label: 'Upcoming releases', link: '/' },
+      { label: 'Previous releases', link: '/' },
+      { label: 'Releases schedule', link: '/' },
+    ],
+  },
+  { label: 'Analytics', icon: IconPresentationAnalytics },
+  { label: 'Contracts', icon: IconFileAnalytics },
+  { label: 'Settings', icon: IconAdjustments },
+  {
+    label: 'Security',
+    icon: IconLock,
+    links: [
+      { label: 'Enable 2FA', link: '/' },
+      { label: 'Change password', link: '/' },
+      { label: 'Recovery codes', link: '/' },
+    ],
+  },
 ];
 
 export function Navbar() {
-  const [active, setActive] = useState('Releases');
-  const [activeLink, setActiveLink] = useState('Settings');
-
-  const mainLinks = mainLinksMockdata.map((link) => (
-    <Tooltip
-      label={link.label}
-      position="right"
-      withArrow
-      transitionProps={{ duration: 0 }}
-      key={link.label}
-    >
-      <UnstyledButton
-        onClick={() => setActive(link.label)}
-        className={classes.mainLink}
-        data-active={link.label === active || undefined}
-      >
-        <link.icon style={{ width: rem(22), height: rem(22) }} stroke={1.5} />
-      </UnstyledButton>
-    </Tooltip>
-  ));
-
-  const links = linksMockdata.map((link) => (
-    <a
-      className={classes.link}
-      data-active={activeLink === link || undefined}
-      href="#"
-      onClick={(event) => {
-        event.preventDefault();
-        setActiveLink(link);
-      }}
-      key={link}
-    >
-      {link}
-    </a>
-  ));
+  const links = mockdata.map((item) => <LinksGroup {...item} key={item.label} />);
 
   return (
     <nav className={classes.navbar}>
-      <div className={classes.wrapper}>
-        <div className={classes.aside}>
-          <div className={classes.logo}>
-            {/* <MantineLogo type="mark" size={30} /> */}
-          </div>
-          {mainLinks}
-        </div>
-        <div className={classes.main}>
-          <Title order={4} className={classes.title}>
-            {active}
-          </Title>
+      <div className={classes.header}>
+        <Group justify="space-between">
+          {/* <Logo style={{ width: rem(120) }} /> */}
+          <Code fw={700}>v3.1.2</Code>
+        </Group>
+      </div>
 
-          {links}
-        </div>
+      <ScrollArea className={classes.links}>
+        <div className={classes.linksInner}>{links}</div>
+      </ScrollArea>
+
+      <div className={classes.footer}>
+        {/* <UserButton /> */}
       </div>
     </nav>
   );
