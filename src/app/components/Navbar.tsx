@@ -1,6 +1,4 @@
 'use client'
-
-
 import { Group, Code, ScrollArea, rem } from '@mantine/core';
 import {
   IconNotes,
@@ -11,9 +9,7 @@ import {
   IconAdjustments,
   IconLock,
 } from '@tabler/icons-react';
-// import { UserButton } from '../UserButton/UserButton';
-import { LinksGroup } from '../dashboard/NavbarLinksGroup';
-// import { Logo } from './Logo';
+import { LinksGroup } from './NavbarLinksGroup';
 import classes from './NavbarNested.module.css';
 
 const mockdata = [
@@ -59,7 +55,6 @@ export function Navbar() {
     <nav className={classes.navbar}>
       <div className={classes.header}>
         <Group justify="space-between">
-          {/* <Logo style={{ width: rem(120) }} /> */}
           <Code fw={700}>v3.1.2</Code>
         </Group>
       </div>
@@ -69,7 +64,6 @@ export function Navbar() {
       </ScrollArea>
 
       <div className={classes.footer}>
-        {/* <UserButton /> */}
       </div>
     </nav>
   );
